@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="selenium-server-standalone-2.42.2">
+    <CLASSES>
+      <root url="jar://D:/DIST/selenium-server-standalone-2.42.2.jar!/" />
+      <root url="jar://D:/DIST/junit-4.11.jar!/" />
+      <root url="jar://D:/DIST/org.apache.commons.codec-1.8.jar/org.apache.commons.codec-1.8.jar!/" />
+      <root url="jar://D:/DIST/selenium-java-2.42.2/selenium-2.42.2/selenium-java-2.42.2.jar!/" />
+      <root url="jar://D:/DIST/ios-server-0.6.5-jar-with-dependencies.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

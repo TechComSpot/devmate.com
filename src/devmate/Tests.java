@@ -9,17 +9,40 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.apache.commons.io.FileUtils;
+import org.uiautomation.ios.client.uiamodels.impl.RemoteIOSDriver;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import java.net.URL;
+import java.net.*;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class Tests {
 	private WebDriver driver;
 
-	@Before public void Discovery () {
-		System.setProperty("webdriver.chrome.driver", "D:/chromedriver.exe");
-		driver = new ChromeDriver();
+	@Before public void PreTests () {
+		DesiredCapabilities capabilities = new DesiredCapabilities();
+		capabilities.setCapability("deviceName", "iPhone Simulator");
+		capabilities.setCapability("platformName", "iOS");
+		capabilities.setCapability("platformVersion", "7.1");
+		capabilities.setCapability("browserName", "safari");
+		driver = new RemoteWebDriver(new URL("http://127.0.0.1:4723/wd/hub"),
+				capabilities);
+		//System.setProperty("webdriver.chrome.driver", "D:/chromedriver.exe");
+		//System.setProperty("RemoteIOSDriver", "D://DIST/ios-server-0.6.5-jar-with-dependencies.jar");
+
+		//driver = new ios simulator();
+		//driver = new FirefoxDriver();
 		driver.manage().window().maximize();
-		//Открыть страницу http://devmate.com
+		//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ http://devmate.com
 		driver.get("http://devmate.com");
 		
 	}
@@ -27,46 +50,46 @@ public class Tests {
 	@Test public void FirstScenario () throws Exception
 	{
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		//Кликнуть на кнопку Sign Up Now
-			driver.findElement(By.xpath("/html/body/header/div/nav/a[5]")).click();
+		//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ Sign Up Now
+			driver.findElement(By.xpath(".//a[@class='nav-signup']")).click();
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		//На странице http://devmate.com/signup отметить чекбокс I'm selling or considering selling outside the Mac App Store.
-			driver.findElement(By.xpath("//*[@id='form-signup']/div/label[2]/input")).click();
+		//пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ http://devmate.com/signup пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ I'm selling or considering selling outside the Mac App Store.
+			driver.findElement(By.xpath(".//input[@name='selling_outside_app_store']")).click();
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		//Проверить появление формы solution
-			driver.findElement(By.xpath("//*[@id='form-signup']/input[5]")).getText();
+		//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ solution
+			driver.findElement(By.xpath(".//input[@name='solution']")).isDisplayed();
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-			System.out.println("Проверка появления формы solution: " +driver.findElement(By.xpath("//*[@id='form-signup']/input[5]")).getText());
+			//System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ solution: " +driver.findElement(By.xpath("//*[@id='form-signup']/input[5]")).getText());
 				
 	}
 	
 	@Test public void SecondScenario () throws Exception
 	{
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		//Кликнуть на FEATURES
-			driver.findElement(By.xpath("/html/body/header/div/nav/a[1]")).click();
+		//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ FEATURES
+			driver.findElement(By.xpath(".//nav/a[1]")).click();
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ http://devmate.com/features/frameworks
 			driver.getTitle();
-		//Проверить что находимся на http://devmate.com/features/frameworks
-			driver.findElement(By.xpath("/html/body/div[2]/div[3]/div[1]/div/div[2]/div/div/div/div/div/img")).getText();
+			driver.findElement(By.xpath(".//img[@alt='Sparkle-based updates framework']")).getText();
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		//Проверить отображение элемента (см. скриншот)
-			System.out.println("Проверка Отображения элемента: " +driver.findElement(By.xpath("/html/body/div[2]/div[3]/div[1]/div/div[2]/div/div/div/div/div/img")).getText());
+		//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
+			System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " +driver.findElement(By.xpath(".//img[@alt='Sparkle-based updates framework']")).getText());
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		//Сделать скриншот страницы, прикрепить его к репорту
+		//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			File screenshot1 = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 			FileUtils.copyFile(screenshot1, new File("D:\\screenshot1.jpg"));
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		//Перейти на http://devmate.com/features/appmanagement
-			driver.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/a[2]/span[1]")).click();
+		//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ http://devmate.com/features/appmanagement
+			driver.findElement(By.xpath(".//a[@class='head-slider-tab on']")).click();
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		//Проверить что находимся на http://devmate.com/features/appmanagement
+		//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ http://devmate.com/features/appmanagement
 			driver.getTitle();
-			System.out.println("Проверка нахождения на странице: " + driver.getTitle());
+			System.out.println("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " + driver.getTitle());
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		//Проверить отображение элемента (см. скриншот)
-			driver.findElement(By.xpath("/html/body/div[2]/div[3]/div[2]/div/div[1]/div/div/div/div/div/img")).getText();
-		//Сделать скриншот страницы, прикрепить его к репорту
+		//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
+			driver.findElement(By.xpath(".//div[@class='visual-slider-img on']")).getText();
+		//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			File screenshot2 = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 			FileUtils.copyFile(screenshot2, new File("D:\\screenshot2.jpg"));
 	}
